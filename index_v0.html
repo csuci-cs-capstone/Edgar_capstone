@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html>
+	<head> 
+		<!-- meta data showing information of website -->
+		<meta charset = "UTF-8">
+		<meta name = "description" content = "Fantasy football start or sit analyzer">
+		<!-- title for webpage -->
+		<title>Fantasy Start/Sit</title> 
+	</head> 
+	<!-- start of navigation menu on top of screen, with possibility to also have webpage that shows database -->
+	<body> 
+		<header>
+			<nav align="center">
+				<b>Home</b>
+			</nav>
+		</header>
+		<main>
+			<br/><br/>
+			<h1 align = "center">CSUCI Spring 2022</h1>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<!-- form tag that creates a search box that could be used to search database -->
+			<div align="center">
+				<form action="/action_page.php">
+				<label for="psearch">Player name:</label>
+				<input type="search" id="psearch" name="psearch">
+				<input type="submit" value="Submit"> <br/><br/>
+				</form>
+		<!-- add a player button, needs to be limited to 4 players -->
+				<button>+ Add a player</button>
+				<button align="right"> <b>Analyze</b> </button>
+			</div>
+		</main>
+		<footer>
+			<b>CSUCI COMP 499</b>
+		</footer>
+	</body> 
+ </html>
