@@ -1,3 +1,2 @@
 # Edgar_capstone
-Fantasy Football Lineup Analyzer
-Test
+This is the Git for my Fantasy Football Start/Sit Analyzer project
