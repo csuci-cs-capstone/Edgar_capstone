@@ -1,0 +1,17 @@
+{
+  "name": "capstone",
+  "version": "0.0.0",
+  "description": "Capstone",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "mysql": "^2.18.1",
+    "mysqlconnector": "^1.0.21"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
