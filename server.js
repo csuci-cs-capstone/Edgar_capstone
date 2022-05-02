@@ -1,10 +1,20 @@
-const http = require('http')
-const fs = require('fs')
+const express = require('express')
+const app = express()
+const path = require('path');
+const port = 3000
+const file = "index.html";
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' })
-    fs.createReadStream('index.html').pipe(res)
-    console.log("server running on local host port 3000")
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, file), function (err) {
+        if (err) {
+            next(err);
+        }
+        else {
+            console.log('Sent:', file);
+        }
+    })
 })
-    
-server.listen(process.env.PORT || 3000)
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`)
+})
