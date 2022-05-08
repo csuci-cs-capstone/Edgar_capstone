@@ -8,21 +8,21 @@ var bodyParser = require('body-parser')
 var mysql = require('mysql');
 var urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "@27r0b0+=",
-    database: "football",
-    multipleStatements: true
-});
-
 //var con = mysql.createConnection({
-//    host: "fantasy-football.cejgj6f569iv.us-east-1.rds.amazonaws.com",
-//    user: "admin",
-//    password: "password",
-//    database: "fantasy_football",
+//    host: "localhost",
+//    user: "root",
+//    password: "@27r0b0+=",
+//    database: "football",
 //    multipleStatements: true
 //});
+
+var con = mysql.createConnection({
+    host: "fantasy-football.cejgj6f569iv.us-east-1.rds.amazonaws.com",
+    user: "admin",
+    password: "password",
+    database: "fantasy_football",
+    multipleStatements: true
+});
 
 con.connect(function (err) {
     if (err) throw err;
