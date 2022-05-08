@@ -161,10 +161,11 @@ con.connect(function (err) {
                         '</body > '+
                 '</html>'
             );
-            con.end();
+            //con.end();
         });
 
     })
+    con.end();
 });
 
     app.listen(port, () => {
