@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html>
+	<head> 
+		<!-- meta data showing information of website -->
+		<meta charset = "UTF-8">
+		<meta name = "description" content = "Fantasy football start or sit analyzer">
+		<!-- title for webpage -->
+		<title>Fantasy Start/Sit</title> 
+	</head> 
+	<!-- start of navigation menu on top of screen, with possibility to also have webpage that shows database -->
+	<body style = "background-color: lightgreen;"> 
+		<header>
+			<nav align="center">
+				<b>Home &emsp;</b><b>Database</b>
+			</nav>
+		</header>
+		<main>
+			<script type="text/javascript">
+				function fn1() {
+					var str = document.getElementById("player").value;
+					alert("Value inside the Player Name box is: " + str);
+
+					var str = document.getElementById("player2").value;
+					alert("Value inside the Player Name box is: " + str);
+				}
+			</script>
+			<br /><br />
+			<h1>CSUCI Spring 2022</h1>
+			<hr />
+			<ul>
+				<b>
+				<li>In the text boxes you will enter the name of the football player (ex. last name, first name)</li>
+				<li>
+					Once all players have been selected hit the "Analyze" button to find the player thats the best
+					option.
+				</li>
+				</b>
+			</ul>
+			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			<!-- form tag that creates a search box that could be used to search database -->
+			<div align="center">
+				<form id="player-form" action="/analyze" method="POST">
+					<label for="psearch">Player name:</label>
+					<input type="text" name="player1" placeholder="last name, first name" required>
+					<label for="psearch">Player name:</label>
+					<input type="text" name="player2" placeholder="last name, first name" required>
+					<label for="psearch">Player name:</label>
+					<input type="text" name="player3" placeholder="last name, first name">
+					<label for="psearch">Player name:</label>
+					<input type="text" name="player4" placeholder="last name, first name">
+					<br /><br />
+					<input type="submit" value="Analyze" name="Analyze">
+				</form>
+
+			</div>
+		</main>
+		<footer>
+			<b>CSUCI COMP 499</b>
+		</footer>
+	</body> 
+ </html>
