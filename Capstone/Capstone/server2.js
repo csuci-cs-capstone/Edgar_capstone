@@ -142,11 +142,6 @@ con.connect(function (err) {
                 '</head>'+
                        ' <!-- start of navigation menu on top of screen, with possibility to also have webpage that shows database -->'+
                        ' <body style="background-color: lightgreen;">'+
-                            '<header>'+
-                               ' <nav align="center">'+
-                                   ' <b>Home &emsp;</b><b>Database</b>'+
-                                '</nav>'+
-                            '</header>'+
                            ' <main>' +
 
                                 '<br /><br />'+
