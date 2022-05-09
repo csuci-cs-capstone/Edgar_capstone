@@ -16,17 +16,28 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true })
 //    multipleStatements: true
 //});
 
-var con = mysql.createConnection({
-    host: "fantasy-football.cejgj6f569iv.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "password",
-    database: "fantasy_football",
+//var con = mysql.createConnection({
+//    host: "fantasy-football.cejgj6f569iv.us-east-1.rds.amazonaws.com",
+//    user: "admin",
+//    password: "password",
+//    database: "fantasy_football",
+//    multipleStatements: true
+//});
+
+var pool = mysql.createPool({
+    connectionLimit: 5,
+    host: 'fantasy-football.cejgj6f569iv.us-east-1.rds.amazonaws.com',
+    user: 'admin',
+    password: 'password',
+    database: 'fantasy_football',
     multipleStatements: true
 });
 
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected to MySQL!");
+//con.connect(function (err) {
+//    if (err) throw err;
+//    console.log("Connected to MySQL!");
+
+//pool.getConnection(function(err, connection) {
 
 
     app.get('/', (req, res) => {
@@ -49,24 +60,31 @@ con.connect(function (err) {
             }
     })
 
-    app.post('/analyze', urlencodedParser, (req, res) => {
-        var sql = `call get_stats("${req.body.player1}");`;
-        var sql2 = `call get_stats("${req.body.player2}");`;
-        var sql3 = `call get_stats("${req.body.player3}");`;
-        var sql4 = `call get_stats("${req.body.player4}");`;
+app.post('/analyze', urlencodedParser, (req, res) => {
+    var sql = `call get_stats("${req.body.player1}");`;
+    var sql2 = `call get_stats("${req.body.player2}");`;
+    var sql3 = `call get_stats("${req.body.player3}");`;
+    var sql4 = `call get_stats("${req.body.player4}");`;
 
-        console.log("Player 1 ", req.body.player1 );
-        console.log("Player 2 ", req.body.player2 );
-        console.log("Player 3 ", req.body.player3 );
-        console.log("Player 4 ", req.body.player4 );
+    console.log("Player 1 ", req.body.player1);
+    console.log("Player 2 ", req.body.player2);
+    console.log("Player 3 ", req.body.player3);
+    console.log("Player 4 ", req.body.player4);
 
-        console.log(sql, sql2, sql3, sql4);
+    console.log(sql, sql2, sql3, sql4);
 
-        var multiplesql = sql + sql2 + sql3 + sql4;
-        console.log(sql);
-        console.log(sql2);
-        console.log(multiplesql);
-        con.query(multiplesql, function (err, result) {
+    var multiplesql = sql + sql2 + sql3 + sql4;
+    console.log(sql);
+    console.log(sql2);
+    console.log(multiplesql);
+    //con.query(multiplesql, function (err, result) {
+    //con.connect(function (err) {
+        //    if (err) throw err;
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        console.log("Connected to MySQL!");
+        //con.query(multiplesql, function (err, result) {
+        pool.query(multiplesql, function (err, result) {
             json_result = JSON.stringify(result);
             if (err) throw err;
             console.log("Result(s) from query: ");
@@ -120,7 +138,7 @@ con.connect(function (err) {
 
             //console.log("player 1: ", JSON.stringify(player1));
             //res.send(player1.toString());
-           
+
             for (let i = 0; i < player_count; i++) {
                 //console.log(result[i][0]["player_rank"]);
                 //console.log(result[i][0]["name"]);
@@ -132,41 +150,42 @@ con.connect(function (err) {
             console.log(player_return);
             res.send(
                 '<!DOCTYPE html>' +
-                '<html>'+
-               ' <head>'+
-                   ' <!-- meta data showing information of website -->'+
-                    '<meta charset="UTF-8">'+
-                       ' <meta name="description" content="Fantasy football start or sit analyzer">'+
-                           ' <!-- title for webpage -->'+
-                           ' <title>Fantasy Start/Sit</title>'+
-                '</head>'+
-                       ' <!-- start of navigation menu on top of screen, with possibility to also have webpage that shows database -->'+
-                       ' <body style="background-color: lightgreen;">'+
-                           ' <main>' +
+                '<html>' +
+                ' <head>' +
+                ' <!-- meta data showing information of website -->' +
+                '<meta charset="UTF-8">' +
+                ' <meta name="description" content="Fantasy football start or sit analyzer">' +
+                ' <!-- title for webpage -->' +
+                ' <title>Fantasy Start/Sit</title>' +
+                '</head>' +
+                ' <!-- start of navigation menu on top of screen, with possibility to also have webpage that shows database -->' +
+                ' <body style="background-color: lightgreen;">' +
+                ' <main>' +
 
-                                '<br /><br />'+
-                                '<h1>CSUCI Spring 2022</h1>'+
-                                ' <hr />' +
-                                 '<h3>' + "The Player to put into your lineup is: " +
-                                player_return +
-                                 '</h3>' +
-                               '<form action="/" method="get">'+
-                                    '<input type = "submit" value = "GO BACK" />'+
-                                '</form>'+
+                '<br /><br />' +
+                '<h1>CSUCI Spring 2022</h1>' +
+                ' <hr />' +
+                '<h3>' + "The Player to put into your lineup is: " +
+                player_return +
+                '</h3>' +
+                '<form action="/" method="get">' +
+                '<input type = "submit" value = "GO BACK" />' +
+                '</form>' +
 
-                            '</main>'+
-                            '<footer>'+
-                                '<b>CSUCI COMP 499</b>'+
-                            '</footer>'+
-                        '</body > '+
+                '</main>' +
+                '<footer>' +
+                '<b>CSUCI COMP 499</b>' +
+                '</footer>' +
+                '</body > ' +
                 '</html>'
             );
             //con.end();
+            connection.release();
         });
-
-    })
-    con.end();
+    });
 });
+    //con.end();
+//});
 
     app.listen(port, () => {
         console.log(`App listening on port ${port}`)
